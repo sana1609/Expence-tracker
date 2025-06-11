@@ -7,3 +7,4 @@ crewai-tools
 langchain-openai
 python-dotenv
 sqlitecloud
+pysqlite3-binary
