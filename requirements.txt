@@ -1,0 +1,9 @@
+streamlit
+plotly
+pandas
+datetime
+crewai
+crewai-tools
+langchain-openai
+python-dotenv
+sqlitecloud
