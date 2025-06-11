@@ -10,7 +10,9 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-
+os.environ["AZURE_API_KEY"] = st.secrets.get("AZURE_API_KEY")
+os.environ["AZURE_API_BASE"] = st.secrets.get("AZURE_API_BASE")
+os.environ["AZURE_API_VERSION"] = st.secrets.get("AZURE_API_VERSION")
 llm = LLM(
     model="azure/gpt-4.1-mini",
     api_version="2025-01-01-preview"
