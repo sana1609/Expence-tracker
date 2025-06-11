@@ -58,31 +58,7 @@ streamlit run app.py
 
 The application will open in your browser at `http://localhost:8501`
 
-## 🚀 Production Deployment
 
-For production deployment, run:
-
-```bash
-python setup_production.py
-```
-
-This will:
-- Create necessary directories
-- Set up configuration files
-- Configure logging
-- Back up any existing data
-
-See `DEPLOYMENT_GUIDE.md` for detailed deployment instructions.
-
-## 👥 Default User Credentials
-
-The application comes with 3 predefined users:
-
-| Username | Password | Full Name |
-|----------|----------|-----------|
-| sana | admin@123$ | Sudhakar |
-| harsi | admin@123$ | Harshitha |
-| pandu | admin@123$ | swetha |
 
 ## 📊 Application Structure
 
@@ -95,15 +71,8 @@ expense_tracker/
 ├── crew_agents.py      # CrewAI agents for financial insights
 ├── utils.py            # Utility functions and constants
 ├── logger.py           # Logging configuration and utilities
-├── config.py           # Application configuration and settings
-├── setup_production.py # Production setup script
 ├── requirements.txt    # Python dependencies
-├── DEPLOYMENT_GUIDE.md # Deployment instructions
 ├── README.md           # This file
-├── .env                # Environment variables (create this)
-├── logs/               # Application logs directory
-└── data/
-    └── expenses.db     # SQLite database (auto-created)
 ```
 
 ## 📝 Logging System
@@ -254,18 +223,6 @@ EXPENSE_CATEGORIES = [
     "🚗 Transportation",
     # Add your custom categories here
     "🎯 Your Custom Category"
-]
-```
-
-### Adding New Users
-Modify the `create_default_users` function in `database.py`:
-```python
-default_users = [
-    ("user1", "User One", "password123"),
-    ("user2", "User Two", "password123"),
-    ("partner", "Partner", "password123"),
-    # Add new users here
-    ("newuser", "New User", "newpassword")
 ]
 ```
 
