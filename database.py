@@ -67,33 +67,11 @@ class DatabaseManager:
                 )
             ''')
             
-            # Insert predefined users if they don't exist
-            self.create_default_users(cursor)
+
             
             conn.commit()
             conn.close()
             db_logger.info("Database initialization completed successfully")
-    def create_default_users(self, cursor):
-        """Create three predefined users"""
-        with LoggingContextManager(db_logger, "create_default_users"):
-            default_users = [
-                ("sana", "Sudhakar", "admin@123$"),
-                ("harsi", "Harshitha", "admin@123$"),
-                ("pandu", "swetha", "admin@123$")
-            ]
-            
-            db_logger.info(f"Creating {len(default_users)} default users if they don't exist")
-            for username, full_name, password in default_users:
-                try:
-                    password_hash = hashlib.sha256(password.encode()).hexdigest()
-                    cursor.execute('''
-                        INSERT OR IGNORE INTO users (username, password_hash, full_name)
-                        VALUES (?, ?, ?)
-                    ''', (username, password_hash, full_name))
-                    db_logger.debug(f"Default user '{username}' processed")
-                except Exception as e:
-                    db_logger.error(f"Failed to create default user '{username}': {str(e)}")
-                    # Continue with other users despite errors
     def authenticate_user(self, username, password):
         """Authenticate user login"""
         with LoggingContextManager(db_logger, f"authenticate_user for '{username}'"):
