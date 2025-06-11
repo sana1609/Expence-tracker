@@ -5,16 +5,16 @@ import os
 from dotenv import load_dotenv
 import traceback
 from logger import db_logger, LoggingContextManager, log_exception
+import streamlit as st
 
 # Load environment variables from .env file
 load_dotenv()
-
 # Register adapters and converters for date handling
 sqlite3.register_adapter(date, lambda d: d.isoformat())
 sqlite3.register_converter("DATE", lambda s: datetime.strptime(s.decode(), "%Y-%m-%d").date())
 
 class DatabaseManager:
-    def __init__(self, sql_url=os.getenv("SQL_URL")):
+    def __init__(self, sql_url=st.secrets.get("SQL_URL")):
         self.sql_url = sql_url
         db_logger.info("DatabaseManager initialized")
         try:
