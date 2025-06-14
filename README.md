@@ -1,12 +1,17 @@
 # Personal Expense Tracker with AI Assistant
 
-A comprehensive expense tracking application built with Streamlit, featuring user authentication, interactive dashboards, and AI-powered financial insights using CrewAI agents.
+A comprehensive expense tracking application built with Streamlit, featuring complete user management, interactive dashboards, expense management, and AI-powered financial insights using CrewAI agents.
 
 ## 🚀 Features
 
 ### Core Features
-- **User Authentication**: Secure login system with 3 predefined users
-- **Expense Management**: Add, view, and categorize expenses
+- **Complete User Management**: 
+  - Secure login system
+  - Change username and password
+  - Update personal information
+  - Admin panel for user administration
+  - Add and delete users (preserving their expenses)
+- **Expense Management**: Add, view, update, and delete expenses
 - **Interactive Dashboard**: Rich visualizations with Plotly charts
 - **Partner Dashboard**: Combined expense view for couples/partners
 - **Advanced Analytics**: Detailed spending analysis and trends
@@ -26,14 +31,10 @@ A comprehensive expense tracking application built with Streamlit, featuring use
 
 ## 🛠️ Installation
 
-1. **Clone or download the project files**
-   ```bash
-   mkdir expense_tracker
-   cd expense_tracker
-   ```
+1. **Clone the repository**
 
 2. **Install required packages**
-   ```bash
+   ```powershell
    pip install -r requirements.txt
    ```
 
@@ -45,10 +46,12 @@ A comprehensive expense tracking application built with Streamlit, featuring use
    APP_ENV=development  # Change to 'production' for production environment
    ```
 
-4. **Create the data directory**
-   ```bash
-   mkdir data
+4. **Run the application in development mode**
+   ```powershell
+   streamlit run app.py
    ```
+
+5. **For production deployment, refer to DEPLOYMENT_GUIDE.md**
 
 ## 🏃‍♂️ Running the Application
 
@@ -57,6 +60,12 @@ streamlit run app.py
 ```
 
 The application will open in your browser at `http://localhost:8501`
+
+### Default Login Credentials
+- **Admin Users**: `admin` or `sana` with password `admin123`
+- **Regular Users**: `user1` with password `user123`
+
+These are for testing purposes only. You can add more users through the User Management interface.
 
 
 
@@ -68,82 +77,54 @@ expense_tracker/
 ├── auth.py             # Authentication logic
 ├── database.py         # Database operations (SQLite)
 ├── dashboard.py        # Dashboard components and visualizations
+├── manage_expenses.py  # Update and delete expenses functionality
+├── user_management.py  # User management functionality
 ├── crew_agents.py      # CrewAI agents for financial insights
 ├── utils.py            # Utility functions and constants
 ├── logger.py           # Logging configuration and utilities
+├── config.py           # Configuration settings
 ├── requirements.txt    # Python dependencies
 ├── README.md           # This file
 ```
 
-## 📝 Logging System
+## 📝 Key Components
 
-The application includes a comprehensive logging system with:
-
+### Logging System
 - **Separate Loggers**: Different components (database, auth, app) have dedicated loggers
 - **Log Rotation**: Automatically rotates logs to prevent excessive file sizes
 - **Multiple Log Levels**: DEBUG, INFO, WARNING, ERROR, and CRITICAL levels for detailed troubleshooting
 - **Context Managers**: Track execution time and catch exceptions
-- **Production Configuration**: Automatically adjusts log levels based on environment
+
+### User Management System
+- **User Administration**: Admin-only interface for managing all users
+- **Profile Management**: Users can update their own information
+- **Password Security**: Strong password requirements with validation
+- **Data Preservation**: User expenses are preserved even when accounts are deleted
 
 ## 🏷️ Expense Categories
 
-The application includes 15 predefined categories:
-- 🍔 Food & Dining
-- 🚗 Transportation
-- 🏠 Housing & Utilities
-- 🛒 Groceries
-- 💊 Healthcare
-- 🎬 Entertainment
-- 👕 Clothing
-- 📚 Education
-- 🎁 Gifts
-- 💰 Savings & Investment
-- 🔧 Maintenance
-- ☎️ Communication
-- ✈️ Travel
-- 🏋️ Fitness
-- 📱 Technology
+The application includes predefined categories covering common expense types like Food & Dining, Transportation, Housing & Utilities, Healthcare, Entertainment, and more. Categories can be customized to meet specific needs.
 
 ## 📈 Dashboard Features
 
-### Personal Dashboard
+### Key Visualizations
 - **Spending Overview**: Total spent, daily average, top category
-- **Visual Analytics**: 
-  - Pie chart for category distribution
-  - Line chart for daily spending trends
-  - Bar chart for monthly comparisons
+- **Visual Analytics**: Pie charts, line charts, bar charts for spending trends
 - **Category Breakdown**: Detailed spending by category
 - **Recent Transactions**: Latest expense entries
 
-### Partner Dashboard
-- **Combined View**: See expenses from both partners
-- **User Comparison**: Compare individual spending
-- **Shared Analytics**: Combined category and trend analysis
-- **Detailed Breakdown**: Sunburst chart showing user and category hierarchy
-
-### Advanced Analysis
-- **Personal Analysis**: Weekly patterns, average transaction sizes
-- **Comparative Analysis**: Compare spending with other users
-- **Trend Analysis**: Monthly trends with percentage changes
+### Analysis Options
+- **Personal Dashboard**: Individual user expense tracking and visualization
+- **Partner Dashboard**: Combined expense view for household management
+- **Advanced Analysis**: Trends, patterns, and comparative spending analysis
 
 ## 🤖 AI Assistant Features
 
-The AI assistant uses CrewAI agents to provide intelligent financial insights:
+The AI assistant uses specialized CrewAI agents to provide intelligent financial insights:
 
-### Financial Analyst Agent
-- Analyzes spending patterns over the last 30 days
-- Identifies concerning spending behaviors
-- Provides actionable recommendations
-
-### Budget Advisor Agent
-- Compares current spending against budget
-- Provides optimization suggestions
-- Warns about potential budget overruns
-
-### Savings Expert Agent
-- Identifies categories with high spending
-- Suggests cost-cutting strategies
-- Recommends long-term savings approaches
+- **Spending Pattern Analysis**: Identifies patterns and provides actionable recommendations
+- **Budget Planning**: Offers optimization suggestions and warns about potential overruns
+- **Savings Opportunities**: Identifies high-spending categories and suggests cost-cutting strategies
 
 ## 💾 Database Schema
 
@@ -167,15 +148,34 @@ The AI assistant uses CrewAI agents to provide intelligent financial insights:
 
 - Password hashing using SHA-256
 - Session-based authentication
+- Strong password validation requirements
+- Username format validation
 - Input validation and sanitization
 - SQL injection prevention through parameterized queries
+- Role-based access control for admin features
 
 ## 📱 Usage Guide
+
+### Managing Your User Profile
+1. Navigate to "👤 User Management" (available to all users)
+2. Go to the "✏️ My Profile" tab
+3. Update your username, password, or personal information
 
 ### Adding Expenses
 1. Navigate to "➕ Add Expense"
 2. Enter amount, purpose, category, and date
 3. Click "💾 Add Expense" to save
+
+### Managing Expenses
+1. Navigate to "✏️ Manage Expenses"
+2. Select the expense to modify
+3. Update expense details or delete as needed
+
+### User Administration (Admin Only)
+1. Navigate to "👤 User Management"
+2. Use the "👥 All Users" tab to manage existing users
+3. Use the "➕ Add User" tab to create new users
+4. Perform actions like changing usernames, resetting passwords, or deleting accounts
 
 ### Viewing Dashboard
 1. Go to "📊 Dashboard"
@@ -203,15 +203,24 @@ The AI assistant uses CrewAI agents to provide intelligent financial insights:
 
 2. **AI features not working**: Check that your OpenAI API key is correctly set in the `.env` file.
 
-3. **Login issues**: Use the exact credentials provided in the table above.
+3. **Login issues**: Use the default credentials provided above.
 
 4. **Charts not displaying**: Ensure all dependencies are installed correctly.
+
+5. **Password requirements**: Passwords must have at least 8 characters with uppercase, lowercase, digit, and special character.
+
+6. **Username requirements**: Usernames must be 3-20 characters long and contain only letters, numbers, and underscores.
+
+7. **Cannot delete your own account**: Admins cannot delete their own accounts while logged in.
 
 ### Error Messages
 
 - **"No expenses found"**: Add some expenses first or adjust date filters
 - **"Analysis unavailable"**: Check your OpenAI API key configuration
-- **"Invalid username or password"**: Use the predefined credentials
+- **"Invalid username or password"**: Use the default credentials
+- **"Username already exists"**: Choose a different username
+- **"Current password is incorrect"**: Verify your current password when changing it
+- **"Username is invalid"**: Follow the username format requirements
 
 ## 🔧 Customization
 
@@ -226,26 +235,23 @@ EXPENSE_CATEGORIES = [
 ]
 ```
 
-### Customizing AI Agents
-Modify the agent configurations in `crew_agents.py` to change their behavior, add new tools, or create additional agents.
-
 ## 📊 Performance Considerations
 
 - The application uses SQLite for simplicity but can be upgraded to PostgreSQL for production
-- AI features require OpenAI API calls which may have latency
-- Large datasets may require pagination for better performance
+- Log rotation prevents excessive log file sizes
+- Large datasets have filtering options for better performance
 
 ## 🔄 Future Enhancements
 
+- [x] User management system
+- [x] Expense update and deletion
+- [x] Production-ready logging
 - [ ] Budget setting and tracking
-- [ ] Expense categories management
 - [ ] Receipt image upload and OCR
 - [ ] Bank account integration
 - [ ] Mobile app version
 - [ ] Multi-currency support
 - [ ] Advanced reporting and analytics
-- [ ] Expense approval workflows
-- [ ] Integration with financial institutions
 
 ## 📄 License
 

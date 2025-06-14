@@ -3,6 +3,8 @@ from datetime import datetime
 from auth import init_session_state, login_page, logout, require_auth
 from database import DatabaseManager
 from dashboard import dashboard_page, partner_dashboard, expense_analysis
+from manage_expenses import manage_expense_page
+from user_management import user_management_page
 from crew_agents import ai_assistant_page
 from utils import EXPENSE_CATEGORIES, format_currency
 from logger import app_logger, LoggingContextManager, log_exception
@@ -206,16 +208,19 @@ def main_app():
         
         # Sidebar navigation
         st.sidebar.title(f"👋 Welcome, {st.session_state.user['full_name']}")
-        st.sidebar.markdown("---")
-        
-        # Navigation menu
+        st.sidebar.markdown("---")          # Navigation menu
         pages = {
             "📊 Dashboard": dashboard_page,
             "➕ Add Expense": add_expense_page,
             "📋 View Expenses": view_expenses_page,
+            "✏️ Manage Expenses": manage_expense_page,
             "🔍 Analysis": expense_analysis,
             "🤖 AI Assistant": ai_assistant_page
         }
+        
+        # Add user management for admin users
+        if st.session_state.user['username'] in ['admin', 'sana']:
+            pages["👤 User Management"] = user_management_page
     
     # Add partner dashboard for specific user
     if st.session_state.user['username'] in ['partner', 'user1']:
