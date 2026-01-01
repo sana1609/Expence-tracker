@@ -8,3 +8,4 @@ langchain-openai
 python-dotenv
 sqlitecloud
 pysqlite3-binary
+crewai[azure-ai-inference]
