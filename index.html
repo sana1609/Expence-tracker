@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Track, analyze &amp; optimize your spending">
+    <title>Expense Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="login-brand">
+                <div class="login-icon">💰</div>
+                <h1>Expense Tracker</h1>
+                <p>Track, analyze &amp; optimize your spending</p>
+            </div>
+            <form id="login-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="login-user">Username</label>
+                    <div class="input-icon">
+                        <i class="ri-user-3-line"></i>
+                        <input type="text" id="login-user" placeholder="Enter username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-pass">Password</label>
+                    <div class="input-icon">
+                        <i class="ri-lock-2-line"></i>
+                        <input type="password" id="login-pass" placeholder="Enter password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="ri-login-box-line"></i> Sign In
+                </button>
+                <div id="login-error" class="alert alert-error hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- App Screen -->
+    <div id="app-screen" class="hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">💰</span>
+                <span class="brand-text">ExpenseTracker</span>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li data-page="dashboard" class="active">
+                        <i class="ri-dashboard-3-line"></i><span>Dashboard</span>
+                    </li>
+                    <li data-page="add">
+                        <i class="ri-add-circle-line"></i><span>Add Expense</span>
+                    </li>
+                    <li data-page="expenses">
+                        <i class="ri-file-list-3-line"></i><span>Expenses</span>
+                    </li>
+                    <li data-page="analytics">
+                        <i class="ri-line-chart-line"></i><span>Analytics</span>
+                    </li>
+                    <li data-page="budget">
+                        <i class="ri-wallet-3-line"></i><span>Budget</span>
+                    </li>
+                    <li data-page="ai">
+                        <i class="ri-robot-2-line"></i><span>AI Insights</span>
+                    </li>
+                    <li data-page="admin" class="admin-only hidden">
+                        <i class="ri-admin-line"></i><span>Admin</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-pill">
+                    <i class="ri-user-3-line"></i>
+                    <span id="sidebar-user"></span>
+                </div>
+                <div class="sidebar-actions">
+                    <button id="theme-btn" class="btn-icon" title="Toggle theme">
+                        <i class="ri-moon-line"></i>
+                    </button>
+                    <button id="logout-btn" class="btn-icon" title="Logout">
+                        <i class="ri-logout-box-r-line"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main id="main">
+            <header id="topbar">
+                <button id="menu-btn" class="btn-icon mobile-only">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <h1 id="page-title">Dashboard</h1>
+                <div id="topbar-actions"></div>
+            </header>
+            <div id="content"></div>
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav id="bottom-nav">
+            <button data-page="dashboard" class="bottom-nav-item active">
+                <i class="ri-dashboard-3-line"></i><span>Home</span>
+            </button>
+            <button data-page="add" class="bottom-nav-item">
+                <i class="ri-add-circle-line"></i><span>Add</span>
+            </button>
+            <button data-page="expenses" class="bottom-nav-item">
+                <i class="ri-file-list-3-line"></i><span>History</span>
+            </button>
+            <button data-page="analytics" class="bottom-nav-item">
+                <i class="ri-line-chart-line"></i><span>Analytics</span>
+            </button>
+            <button data-page="budget" class="bottom-nav-item">
+                <i class="ri-wallet-3-line"></i><span>Budget</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
