@@ -566,7 +566,7 @@ def ai_analyze(req: AIReq, user=Depends(_auth)):
     try:
         client = AzureOpenAI(api_key=AZURE_API_KEY, azure_endpoint=AZURE_API_BASE, api_version=AZURE_API_VERSION)
         resp = client.chat.completions.create(
-            model="gpt-4.1-mini",
+            model="gpt-5.2",
             messages=[
                 {"role": "system", "content": "You are a concise personal finance assistant. Use markdown. Be specific with numbers."},
                 {"role": "user", "content": prompts.get(req.type, prompts["general"])}
